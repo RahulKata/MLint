@@ -1,5 +1,5 @@
-# MLint
+# MLiT
  
 ---
 
-Machine Learning is not tough
+Machine Learning isn't tough
