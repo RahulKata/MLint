@@ -2,6 +2,7 @@ import streamlit as st
 from sklearn import datasets
 import matplotlib.pyplot as plt
 import numpy as np
+import time
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
@@ -49,16 +50,13 @@ st.write('number of classes:', len(np.unique(y)))
 
 def add_parameter_ui(clf_name):
     params = dict()
-    if clf_name == 'SVM':
-        C = st.sidebar.slider('C', 0.01, 10.0)
-        params['C'] = C
-    elif clf_name == 'KNN':
+    if clf_name == 'KNN':
         K = st.sidebar.slider('K', 1, 15)
         params['K'] = K
-    else:
+    elif clf_name == 'Random Forest':
         max_depth = st.sidebar.slider('max_depth', 2, 15)
         params['max_depth'] = max_depth
-        n_estimators = st.sidebar.slider('n_estimators', 1, 100)
+        n_estimators = st.sidebar.slider('n_estimators', 10, 100)
         params['n_estimators'] = n_estimators
     return params
 
@@ -77,6 +75,9 @@ def get_classifier(clf_name, params):
                                            max_depth=params['max_depth'], random_state=1234)
     return clf
 
+
+with st.spinner('Wait for it.....'):
+    time.sleep(5)
 
 clf = get_classifier(classifier_name, params)
 
